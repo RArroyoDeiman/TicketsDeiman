@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace TicketsDeiman.Pages
 {
-    public class HomeModel : PageModel
+    public class MainModel : PageModel
     {
         public void OnGet()
         {

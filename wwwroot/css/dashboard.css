@@ -1,0 +1,380 @@
+﻿/* ============================================================
+   RESET GENERAL
+============================================================ */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+    overflow: hidden;
+    background-color: white;
+}
+
+/* ============================================================
+   SIDEBAR BASE
+============================================================ */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 60px;
+    background-color: #d32f2f;
+    background-image: url('/Imagenes/Texturas-03.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-blend-mode: overlay;
+    color: white;
+    padding-top: 20px;
+    z-index: 1050;
+    transition: width 0.3s ease;
+    overflow-x: hidden;
+    opacity: 0.9;
+}
+
+    .sidebar .menu-text,
+    .sidebar-header h2,
+    .sidebar .welcome-block {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+@media (min-width: 769px) {
+    .sidebar:hover {
+        width: 250px;
+    }
+
+        .sidebar:hover .menu-text,
+        .sidebar:hover .sidebar-header h2,
+        .sidebar:hover .welcome-block {
+            visibility: visible;
+            opacity: 1;
+        }
+}
+
+.sidebar.expanded {
+    width: 230px;
+}
+
+    .sidebar.expanded .menu-text,
+    .sidebar.expanded .sidebar-header h2,
+    .sidebar.expanded .welcome-block {
+        visibility: visible;
+        opacity: 1;
+    }
+
+.sidebar a {
+    text-decoration: none;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+}
+
+    .sidebar a:hover {
+        background-color: #b71c1c;
+    }
+
+    .sidebar a i {
+        margin-right: 10px;
+        font-size: 1.2rem;
+    }
+
+.sidebar-header {
+    text-align: center;
+    padding: 15px 20px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    margin-bottom: 20px;
+}
+
+    .sidebar-header h2 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin: 0;
+        color: white;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+.welcome-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: white;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+    .welcome-block i {
+        font-size: 1.6rem;
+    }
+
+/* ============================================================
+   BOTÓN FLOTANTE (solo móviles/tablets)
+============================================================ */
+.sidebar-toggle-btn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1100;
+    background-color: #f1f1f1;
+    color: #333;
+    border: 1px solid #ccc;
+    transition: background-color 0.2s;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 1024px) {
+    .sidebar-toggle-btn {
+        display: flex;
+    }
+}
+
+/* ============================================================
+   MAIN CONTENT
+============================================================ */
+.main-content {
+    margin-left: 60px;
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar.expanded ~ .main-content {
+    margin-left: 250px;
+}
+
+@media (min-width: 769px) {
+    .sidebar:hover ~ .main-content {
+        margin-left: 250px;
+    }
+}
+
+/* ============================================================
+   CONTENIDO INTERIOR
+============================================================ */
+.contenido-wrapper {
+    background-color: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.08);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.watermark-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.watermark {
+    max-width: 50%;
+    opacity: 0.1;
+    height: auto;
+}
+
+/* ============================================================
+   MEDIA QUERIES
+============================================================ */
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    .sidebar a {
+        text-align: center;
+        padding: 12px 12px;
+    }
+
+        .sidebar a i {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+            margin: 0;
+        }
+
+    .sidebar .menu-text {
+        white-space: nowrap;
+    }
+}
+
+/* === Mostrar Welcome Block y título cuando está expandido en móviles/tablets === */
+@media screen and (max-width: 1024px) {
+    .sidebar.expanded .sidebar-header h2,
+    .sidebar.expanded .welcome-block {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        visibility: visible;
+        opacity: 1;
+        padding: 10px 0;
+    }
+
+    .sidebar:not(.expanded) .sidebar-header h2,
+    .sidebar:not(.expanded) .welcome-block {
+        display: none !important;
+    }
+
+    .welcome-block {
+        font-size: 0.9rem;
+        gap: 4px;
+    }
+
+        .welcome-block i {
+            font-size: 1.2rem;
+        }
+}
+
+
+
+/* Estilos del modal de usuarios */
+.modal-content {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    background-color: #d32f2f;
+    color: white;
+    border-bottom: 2px solid #b71c1c;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: center; /* Esto centra el contenido */
+    align-items: center;
+    width: 100%;
+}
+
+.modal-footer {
+    background-color: #f1f1f1;
+    border-top: 2px solid #ddd;
+}
+
+    .modal-footer .btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+
+.modal-title {
+    /*        font-size: 1.25rem;
+            text-align: center;
+            margin: 0; 
+            padding: 10px 0;*/
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    justify-content: center; /* Centra el contenido dentro del modal-title */
+    width: 100%;
+}
+
+    .modal-title i {
+        margin-right: 10px; /* Espacio entre el ícono y el texto */
+    }
+
+/* Estilos del botón "Agregar Usuario" */
+#btnAgregarUsuario {
+    background-color: #4caf50; /* Verde */
+    border-color: #388e3c;
+    color: white;
+    padding: 5px 10px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre el ícono y el botón */
+}
+
+    #btnAgregarUsuario i {
+        font-size: 1.3rem; /* Tamaño del ícono */
+    }
+
+    #btnAgregarUsuario:hover {
+        background-color: #388e3c;
+        border-color: #2c6e2e;
+    }
+
+    /* Estilo para el ícono dentro del botón */
+    #btnAgregarUsuario .bi {
+        font-size: 1.3rem; /* Ajuste el tamaño del ícono */
+    }
+
+/* Estilo para la imagen de perfil */
+#imagePreviewContainer {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#imagePreview {
+    max-width: 20%;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    padding: 5px;
+}
+
+/* Contenedor de la imagen dentro del modal */
+#userImagePreview {
+    display: block;
+    margin: 20px auto;
+    max-width: 35%;
+    height: auto;
+    max-height: 300px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    padding: 5px;
+}
+
+/* Estilo para los inputs pequeños */
+.form-control-sm {
+    font-size: 0.875rem; /* Reduce el tamaño del texto */
+    padding: 0.375rem 0.75rem; /* Reduce el padding */
+    height: 38px; /* Altura más pequeña */
+}
+
+/* Estilo para el input de búsqueda con ícono */
+.input-group .input-group-text {
+    background-color: #f8f9fa; /* Fondo claro para el ícono */
+    border-left: 0; /* Quitar borde a la izquierda del ícono */
+    cursor: pointer;
+}
+
+.input-group .form-control {
+    border-right: 0; /* Quitar borde a la derecha del input */
+}
+
+/* Tamaño del ícono dentro del input */
+.input-group-text i {
+    font-size: 1rem; /* Ajusta el tamaño del ícono */
+}
+
+table td {
+    white-space: nowrap; /* Evitar que los botones se acomoden verticalmente */
+}
+
+    table td button {
+        margin-right: 8px; /* Espacio entre los botones */
+        display: inline-flex; /* Esto asegura que los botones se mantengan en línea */
+        align-items: center; /* Alineación vertical centrada dentro del botón */
+    }
+
+        /* Eliminar el margen derecho en el último botón */
+        table td button:last-child {
+            margin-right: 0;
+        }

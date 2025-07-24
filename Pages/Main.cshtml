@@ -1,0 +1,143 @@
+﻿@page
+@model TicketsDeiman.Pages.MainModel
+@{
+    ViewData["Title"] = "Main";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <!-- CSS -->
+    <link href="~/css/dashboard.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <button id="sidebarToggle" class="sidebar-toggle-btn">
+        <i class="bi bi-chevron-right"></i>
+    </button>
+
+    <!-- Sidebar -->
+
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h2>Help Desk</h2>
+        <div class="welcome-block">
+            <i class="bi bi-person-circle"></i> 
+            <span>Bienvenido DEIMAN</span>
+        </div>
+    </div>
+    <a href="#" id="inicioBtn"><i class="bi bi-house"></i> <span class="menu-text">Inicio</span></a>
+    <a href="#" id="crearTicket"><i class="bi bi-plus-circle"></i> <span class="menu-text">Crear Ticket</span></a>
+    <a href="#" id="ticketsAbiertos"><i class="bi bi-journal-text"></i> <span class="menu-text">Tickets Abiertos</span></a>
+    <a href="#" id="reportes"><i class="bi bi-bar-chart-line"></i> <span class="menu-text">Reportes</span></a>
+    <a href="#" data-bs-toggle="modal" data-bs-target="#usuariosModal"><i class="bi bi-people"></i> <span class="menu-text">Usuarios</span></a>
+    <a href="#" id="cerrarSesion"><i class="bi bi-box-arrow-right"></i> <span class="menu-text">Cerrar Sesión</span></a>
+</div>
+   
+    <!-- Contenido principal -->
+    <div class="main-content" id="mainContent">
+        <!-- Marca de agua -->
+        <div class="watermark-container" id="watermarkContainer">
+            <img src="~/Imagenes/logotipo_rojo.png" alt="Marca de Agua" class="watermark">
+        </div>
+
+        <!-- Vista bitácora -->
+        <div id="bitacoraView">
+            <iframe src="~/Captura/bitacora.html"></iframe>
+        </div>
+    </div>
+
+    <!-- Modal de Gestión de Usuarios -->
+    <div class="modal fade" id="usuariosModal" tabindex="-1" aria-labelledby="usuariosModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="usuariosModalLabel">
+                        <i class="bi bi-person-fill"></i> Gestión de Usuarios
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="usuariosGrid">
+                        <button id="btnAgregarUsuario" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#agregarUsuarioModal">
+                            <i class="bi bi-person-plus"></i>
+                        </button>
+
+                        <table id="usuariosTable" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>NTrab</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usuariosTbody">
+                                <!-- Contenido dinámico -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Agregar Usuario -->
+    <div class="modal fade" id="agregarUsuarioModal" tabindex="-1" aria-labelledby="agregarUsuarioModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="agregarUsuarioModalLabel">Agregar Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Input búsqueda -->
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="nTRAB" placeholder="Ingrese un número de Trabajador" required>
+                        <span class="input-group-text" id="btnBuscarUsuarioIcon" style="cursor: pointer;">
+                            <i class="bi bi-search"></i>
+                        </span>
+                    </div>
+
+                    <div class="mb-3">
+                        <img id="userImagePreview" src="~/imagenes/userImage.png" alt="Imagen de Usuario" class="img-fluid" style="display:none;">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control form-control-sm" id="nombre" placeholder="Nombre" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control form-control-sm" id="userName" placeholder="Usuario" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="password" class="form-control form-control-sm" id="password" placeholder="Contraseña" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <select id="userRoleDropdown" class="form-select form-select-sm">
+                            <!-- Opciones cargadas dinámicamente -->
+                        </select>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" id="btnGuardarUsuario">Guardar Usuario</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/dashboard.js"></script>
+</body>
+</html>
